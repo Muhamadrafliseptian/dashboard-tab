@@ -25,7 +25,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Http/Helper/ApiHelper.php"
+            "app/Http/Helper/ApiHelper.php",
+            "app/Http/Helper/DynamicAsset.php"
         ]
     },
     "autoload-dev": {
