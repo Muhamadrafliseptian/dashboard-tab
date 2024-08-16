@@ -12,7 +12,7 @@
         .: {{ config('app.name') }} - @yield('title') :.
     </title>
 
-    <link rel="icon" type="image/png" href="{{ URL::asset('template/images/LOGO-TAB-TNOS.png') }}" />
+    <link rel="icon" type="image/png" href="{{ dynamic_asset('template/images/LOGO-TAB-TNOS.png') }}" />
     @include('pages.layouts.components.css.style-css')
 
     @yield('component-css')
@@ -38,7 +38,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="{{ url('public/template/images/img.jpg') }}" alt="..."
+                            <img src="{{ dynamic_asset('template/images/img.jpg') }}" alt="..."
                                 class="img-circle profile_img">
                         </div>
                         <div class="profile_info">

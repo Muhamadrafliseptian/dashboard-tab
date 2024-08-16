@@ -3,14 +3,14 @@
 {{-- @section('title', 'Detail Data Panic') --}}
 
 @section('component-css')
-    <link href="{{ url('public/template') }}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url('public/template') }}/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+    <link href="{{ dynamic_asset('template') }}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="{{ dynamic_asset('template') }}/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
         rel="stylesheet">
-    <link href="{{ url('public/template') }}/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+    <link href="{{ dynamic_asset('template') }}/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
         rel="stylesheet">
-    <link href="{{ url('public/template') }}/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
+    <link href="{{ dynamic_asset('template') }}/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
         rel="stylesheet">
-    <link href="{{ url('public/template') }}/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+    <link href="{{ dynamic_asset('template') }}/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
         rel="stylesheet">
     <style>
         #map {
@@ -22,7 +22,6 @@
 @endsection
 
 @section('content-page')
-
     @php
         $lokasi = json_decode($detail['lokasi']);
     @endphp
@@ -179,7 +178,6 @@
             <div id="map"></div>
         </div>
     </div>
-
 @endsection
 
 @section('component-js')
@@ -193,110 +191,32 @@
                 lat: {{ $lokasi['latitude'] }},
                 lng: {{ $lokasi['longitude'] }}
             };
-
-            var location2 = {
-                lat: {{ $lokasi_user['latitude'] }},
-                lng: {{ $lokasi_user['longitude'] }}
-            };
-
-            var location3 = {
-                lat: {{ $lokasi_responder['latitude'] }},
-                lng: {{ $lokasi_responder['longitude'] }}
-            };
-
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 13,
                 center: location1
             });
 
             var icon1 = {
-                url: "{{ URL::asset('image/ICON-KEJADIAN.jpeg') }}",
+                url: "{{ URL::asset('public/image/ICON-KEJADIAN.png') }}",
                 scaledSize: new google.maps.Size(30, 30)
             }
 
-            var icon2 = {
-                url: "{{ URL::asset('image/ICON-USER.jpeg') }}",
-                scaledSize: new google.maps.Size(30, 30)
-            }
+            var marker1 = new google.maps.Marker({
+                position: location1,
+                map: map,
+                title: 'Lokasi Kejadian',
+                icon: icon1
+            });
 
-            var icon3 = {
-                url: "{{ URL::asset('image/ICON-RESPONDER.jpeg') }}",
-                scaledSize: new google.maps.Size(30, 30)
-            }
-
-            if (detail.statuss == "D") {
-                var marker1 = new google.maps.Marker({
-                    position: location1,
-                    map: map,
-                    title: 'Lokasi Kejadian',
-                    icon: icon1
-                });
-
-                var infoWindow1 = new google.maps.InfoWindow({
-                    content: `
-                    <strong>Latitude : {{ $lokasi['latitude'] }} </strong>
-                    <br>
-                    <strong>Longitude : {{ $lokasi['longitude'] }} </strong>
+            var infoWindow1 = new google.maps.InfoWindow({
+                content: `
+                    Lokasi Kejadian
                 `
-                });
+            });
 
-                marker1.addListener('click', function() {
-                    infoWindow1.open(map, marker1);
-                });
-            } else {
-                var marker1 = new google.maps.Marker({
-                    position: location1,
-                    map: map,
-                    title: 'Lokasi Kejadian',
-                    icon: icon1
-                });
-
-                var marker2 = new google.maps.Marker({
-                    position: location2,
-                    map: map,
-                    title: 'Lokasi User',
-                    icon: icon2
-                });
-
-                var marker3 = new google.maps.Marker({
-                    position: location3,
-                    map: map,
-                    title: 'Lokasi Responder',
-                    icon: icon3
-                });
-
-                var infoWindow1 = new google.maps.InfoWindow({
-                    content: `
-                    <strong>Latitude : {{ $lokasi['latitude'] }} </strong>
-                    <br>
-                    <strong>Longitude : {{ $lokasi['longitude'] }} </strong>
-                `
-                });
-
-                var infoWindow2 = new google.maps.InfoWindow({
-                    content: `
-                    <strong>Nama User : {{ $detail['name'] }} </strong>
-                `
-                });
-
-                var infoWindow3 = new google.maps.InfoWindow({
-                    content: `
-                    <strong>Nama Responder : {{ $detail['responder_name'] }} </strong>
-                `
-                });
-
-                marker1.addListener('click', function() {
-                    infoWindow1.open(map, marker1);
-                });
-
-                marker2.addListener('click', function() {
-                    infoWindow2.open(map, marker2);
-                });
-
-                marker3.addListener('click', function() {
-                    infoWindow3.open(map, marker3);
-                });
-            }
+            marker1.addListener('click', function() {
+                infoWindow1.open(map, marker1);
+            });
         }
     </script>
 @endsection

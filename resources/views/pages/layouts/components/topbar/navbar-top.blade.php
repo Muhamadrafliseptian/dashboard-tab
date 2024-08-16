@@ -9,7 +9,7 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle text-uppercase" data-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="{{ url('public/template/images/img.jpg') }}" alt=""> {{ session('data.nama') }}
+                        <img src="{{ dynamic_asset('template/images/img.jpg') }}" alt=""> {{ session('data.nama') }}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
