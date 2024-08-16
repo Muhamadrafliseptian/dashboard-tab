@@ -11,6 +11,6 @@ if (!function_exists('dynamic_asset')) {
         }
 
         // Untuk mode manual `localhost`
-        return $baseUrl . '/public/' . ltrim($path, '/');
+        return $baseUrl . '/' . ltrim($path, '/');
     }
 }
